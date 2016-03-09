@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var users = require('../models/user_model');
-console.log('users', users);
+var user = require('../models/user_model');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -10,7 +9,10 @@ router.get('/', function(req, res, next) {
 
 /* GET users listing. */
 router.get('/form', function(req, res, next) {
-    res.render('user_form', { users: users });
+    user.getUsers(function(err, users) {
+    	//cuando estén disponibles mando la vista
+        res.render('user_form', { users: users }); 
+    });
 });
 
 module.exports = router;
