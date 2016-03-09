@@ -20,7 +20,6 @@ var pepe = new Persona('pepe');
 pepe.saluda();
 
 
-
 ////--------------HERENCIA-------------------
 
 //Otra función constructora que hereda de Persona
