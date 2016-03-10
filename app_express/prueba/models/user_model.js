@@ -1,17 +1,28 @@
 "use strict";
-//datos
-var users = [
-	{name:'Smith', age:30}, 
-	{name:'Jones', age:22}
-];
+var conn = require('../lib/connectMongo');
+
+
 //metodos del modelo
 var user = {
-	getUsers: function(cb){
-		//imaginamos que lee un fichero
-		var usuariosLeidos = users;
-		cb(null, users);
-	}
+    getUsers: function(cb) {
+        //imaginamos que lee un fichero
+        // var usuariosLeidos = users;
+        // cb(null, users);
+        conn.db.collection('agentes').find({}).toArray(function(err, usuariosLeidos) {
+            if (err) {
+                cb(err);
+                return;
+            }
+
+            //devuelvo users
+            cb(null, usuariosLeidos);
+            return;
+
+        });
+    }
+
 };
+
 
 //exportamos el modelo
 module.exports = user;
