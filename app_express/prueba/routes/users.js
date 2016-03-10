@@ -1,6 +1,8 @@
+"use strict";
 var express = require('express');
 var router = express.Router();
 var user = require('../models/user_model');
+var mongoose = require('mongoose');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -9,10 +11,18 @@ router.get('/', function(req, res, next) {
 
 /* GET users listing. */
 router.get('/form', function(req, res, next) {
-    user.getUsers(function(err, users) {
-    	//cuando estén disponibles mando la vista
-        res.render('user_form', { users: users });
-            });
+    var User = mongoose.model('User');
+    User.list(function(err, rows) {
+        if (err) {
+            res.send('error',err);
+            return;
+        }
+        //cuando estén disponibles mando la vista
+        res.render('user_form', { users: rows });
+        return;
+
+    });
+
 });
 
 module.exports = router;

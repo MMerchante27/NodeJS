@@ -11,8 +11,27 @@ var userSchema = mongoose.Schema({
     age: Number
 });
 
+// Método estático
+userSchema.statics.list = function(cb) {
+    // preparamos la query sin ejecutar ( no ponemos callback a find)
+    var query = User.find({});
+
+    //añadimos más parámetros a la query
+    query.sort('name');
+    
+    //La ejecutamos
+    query.exec(function(err, rows) {
+    	if (err) {
+    	    cb(err);
+    	    return;
+    	}
+    	cb(null, rows);
+    	return;
+
+    });
+};
 //Lo registro en mongoose
-mongoose.model('User', userSchema);
+var User = mongoose.model('User', userSchema);
 
 //metodos del modelo
 var user = {
