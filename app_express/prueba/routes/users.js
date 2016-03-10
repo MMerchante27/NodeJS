@@ -1,7 +1,6 @@
 "use strict";
 var express = require('express');
 var router = express.Router();
-var user = require('../models/user_model');
 var mongoose = require('mongoose');
 
 /* GET users listing. */

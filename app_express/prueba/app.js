@@ -5,11 +5,17 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Modelos
+require('./models/user_model');
+
+
+// Rutas de web
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var admin = require('./routes/admin');
 
-
+// Rutas de API V1
+var apiUser = require('./routes/api/v1/users');
 
 var app = express();
 
@@ -17,11 +23,11 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(function(req, res, next) {
-  //console.log(req.query); 
-  // var algo = req.query.algo || '';
-  // req.algo = algo;
-  //res.send('Soy el primero')
-  next();
+    //console.log(req.query); 
+    // var algo = req.query.algo || '';
+    // req.algo = algo;
+    //res.send('Soy el primero')
+    next();
 });
 
 // uncomment after placing your favicon in /public
@@ -35,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/admin', admin);
+app.use('/api/v1/user', apiUser);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
