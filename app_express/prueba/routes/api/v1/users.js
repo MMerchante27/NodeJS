@@ -4,8 +4,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
+//Si queremos llevar la autenticación a otros módulos, sólo hace falta copiar las dos líneas siguientes
 var auth = require('../../../lib/auth');
-
 router.use(auth('admin', 'pass2'));
 
 
